@@ -3,10 +3,11 @@ import { ArrowUpRight } from 'lucide-react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { process } from '../data'
 
-export function Reveal({ children, className = '', delay = 0 }) {
+export function Reveal({ children, className = '', delay = 0, as = 'div' }) {
   const reduced = useReducedMotion()
+  const Component = as === 'li' ? motion.li : motion.div
   return (
-    <motion.div
+    <Component
       className={className}
       initial={reduced ? false : { opacity: 0, y: 32 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -14,7 +15,7 @@ export function Reveal({ children, className = '', delay = 0 }) {
       transition={{ duration: 0.72, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
-    </motion.div>
+    </Component>
   )
 }
 

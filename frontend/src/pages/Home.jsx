@@ -3,6 +3,7 @@ import { ArrowDown, ArrowUpRight } from 'lucide-react'
 import { projects, services } from '../data'
 import { ProjectCard, Reveal, SectionHead } from '../components/Primitives'
 import { HeroSystems } from '../components/HeroSystems'
+import { ProblemPicker, SolutionStories } from '../components/SolutionStories'
 
 export function Home() {
   return (
@@ -43,6 +44,7 @@ export function Home() {
             Explore our work <ArrowUpRight size={19} />
           </Link>
         </div>
+        <ProblemPicker />
       </section>
       <section className="hero-feature hero-feature-connected">
         <div className="feature-caption container">
@@ -81,6 +83,7 @@ export function Home() {
           </div>
         </div>
       </section>
+      <SolutionStories />
       <section className="section container" id="selected-work">
         <Reveal>
           <SectionHead

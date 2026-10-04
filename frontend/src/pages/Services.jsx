@@ -1,6 +1,7 @@
 import { Asterisk } from 'lucide-react'
 import { services } from '../data'
 import { Callout, PageIntro, Process, Reveal } from '../components/Primitives'
+import { SolutionStories } from '../components/SolutionStories'
 
 export function Services() {
   const groups = [
@@ -22,6 +23,7 @@ export function Services() {
         }
         description="From a first impression to a complete operating system, we design and build what your business needs to move forward."
       />
+      <SolutionStories />
       <section className="section container">
         <div className="service-group-grid">
           {groups.map((group, index) => (
