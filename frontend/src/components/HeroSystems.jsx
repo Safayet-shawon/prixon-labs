@@ -1,5 +1,6 @@
+import { usePrefersReducedMotion } from '../hooks/useMotionPreferences'
 import { useEffect, useRef, useState } from 'react'
-import { motion, useMotionValueEvent, useReducedMotion, useScroll } from 'framer-motion'
+import { motion, useMotionValueEvent, useScroll } from 'framer-motion'
 import './hero-systems.css'
 
 export function HeroSystems() {
@@ -19,7 +20,7 @@ export function HeroSystems() {
   })
   const [nearViewport, setNearViewport] = useState(false)
   const [sceneState, setSceneState] = useState('static')
-  const reducedMotion = useReducedMotion()
+  const reducedMotion = usePrefersReducedMotion()
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start start', 'end end'],

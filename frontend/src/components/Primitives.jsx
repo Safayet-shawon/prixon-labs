@@ -1,18 +1,24 @@
+import { usePrefersReducedMotion } from '../hooks/useMotionPreferences'
 import { Link } from 'react-router-dom'
 import { ArrowUpRight } from 'lucide-react'
-import { motion, useReducedMotion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { process } from '../data'
 
 export function Reveal({ children, className = '', delay = 0, as = 'div' }) {
-  const reduced = useReducedMotion()
+  const reduced = usePrefersReducedMotion()
   const Component = as === 'li' ? motion.li : motion.div
   return (
     <Component
       className={className}
       initial={reduced ? false : { opacity: 0, y: 32 }}
+      animate={reduced ? { opacity: 1, y: 0 } : undefined}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.13 }}
-      transition={{ duration: 0.72, delay, ease: [0.22, 1, 0.36, 1] }}
+      transition={{
+        duration: reduced ? 0 : 0.72,
+        delay: reduced ? 0 : delay,
+        ease: [0.22, 1, 0.36, 1],
+      }}
     >
       {children}
     </Component>
@@ -271,11 +277,11 @@ export function Process() {
         </Reveal>
         <div className="process-grid">
           {process.map((step) => (
-            <div key={step.number} className="process-step">
+            <Reveal key={step.number} className="process-step" delay={Number(step.number) * 0.04}>
               <span>{step.number} / 06</span>
               <h3>{step.title}</h3>
               <p>{step.text}</p>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>

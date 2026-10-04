@@ -62,4 +62,20 @@ class ContactDeliveryServiceTest {
         ))).isInstanceOf(ContactUnavailableException.class)
             .hasMessageContaining("temporarily unavailable");
     }
+
+    @Test
+    void includesPhoneAndCompanyWithoutAnInvalidReplyToHeader() {
+        JavaMailSender sender = mock(JavaMailSender.class);
+        StaticListableBeanFactory beans = new StaticListableBeanFactory();
+        beans.addBean("mailSender", sender);
+        ContactDeliveryService delivery = new ContactDeliveryService(
+            beans.getBeanProvider(JavaMailSender.class), "smtp.example.test", "inbox@example.test", "site@example.test"
+        );
+        delivery.deliver(new ContactRequest("Alex Rivera", null, "Business workflow demo",
+            "Sales and stock records do not match.", "", "Example Company", "+8801712345678"));
+        var message = org.mockito.ArgumentCaptor.forClass(SimpleMailMessage.class);
+        verify(sender).send(message.capture());
+        assertThat(message.getValue().getReplyTo()).isNull();
+        assertThat(message.getValue().getText()).contains("Company: Example Company", "Phone: +8801712345678");
+    }
 }

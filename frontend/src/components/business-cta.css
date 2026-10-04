@@ -1,0 +1,140 @@
+.business-cta {
+  background: #e7eadb;
+  padding-block: 90px;
+  border-top: 1px solid #cbd3b8;
+  scroll-margin-top: 104px;
+}
+.business-cta-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 9%;
+  align-items: start;
+}
+.business-cta-copy h2 {
+  font:
+    600 clamp(36px, 4.8vw, 72px)/1.06 'Manrope',
+    sans-serif;
+  letter-spacing: -0.065em;
+  margin: 26px 0;
+}
+.business-cta-copy h2 em {
+  font-family: Georgia, serif;
+  font-weight: 400;
+}
+.business-cta-copy > p {
+  max-width: 470px;
+  color: #5f6a51;
+  font-size: 15px;
+  line-height: 1.8;
+  margin-bottom: 26px;
+}
+.business-demo-form {
+  display: grid;
+  gap: 22px;
+}
+.business-demo-form label {
+  display: block;
+  font:
+    700 11px 'DM Sans',
+    sans-serif;
+}
+.business-demo-form label > span {
+  color: #687934;
+}
+.business-demo-form input,
+.business-demo-form textarea {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  border: 1px solid #b6c39d;
+  background: var(--paper);
+  padding: 15px;
+  color: var(--ink);
+  border-radius: 0;
+  font:
+    400 14px/1.5 'DM Sans',
+    sans-serif;
+}
+.business-demo-form textarea {
+  resize: vertical;
+}
+.business-demo-form input:focus,
+.business-demo-form textarea:focus {
+  outline: 2px solid #5b742d;
+  outline-offset: 2px;
+}
+.business-demo-form .form-row {
+  gap: 20px;
+}
+.demo-field-hint {
+  font-size: 10px;
+  color: #69765a;
+  margin-top: -13px;
+}
+.demo-privacy {
+  margin: 0;
+  color: #69765a;
+  font-size: 10px;
+  line-height: 1.6;
+}
+.demo-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: stretch;
+}
+.demo-actions .button-dark {
+  flex-shrink: 0;
+  border: 0;
+}
+.demo-actions .button-dark:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+.whatsapp-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px;
+  border: 1px solid #8a9c64;
+  color: #335521;
+  font:
+    700 10px 'DM Sans',
+    sans-serif;
+}
+.whatsapp-button:hover {
+  background: var(--lime);
+}
+.business-demo-form .form-status {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.6;
+  min-height: 18px;
+}
+.business-demo-form .form-status a {
+  text-decoration: underline;
+}
+.business-demo-form .demo-error {
+  color: #994336;
+}
+@media (max-width: 760px) {
+  .business-cta {
+    padding-block: 60px;
+    scroll-margin-top: 88px;
+  }
+  .business-cta-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .business-cta-copy h2 {
+    font-size: 45px;
+  }
+  .business-demo-form {
+    gap: 20px;
+  }
+  .business-demo-form .form-row {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}

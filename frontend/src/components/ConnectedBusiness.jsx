@@ -1,5 +1,6 @@
+import { usePrefersReducedMotion } from '../hooks/useMotionPreferences'
 import { useState } from 'react'
-import { motion, useReducedMotion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { ArrowUpRight, Boxes, Globe2, Landmark, Network, Users, UserRound } from 'lucide-react'
 import { Reveal, SectionHead } from './Primitives'
 import './connected-business.css'
@@ -75,7 +76,7 @@ const nodes = [
 
 export function ConnectedBusiness() {
   const [selected, setSelected] = useState('erp')
-  const reduced = useReducedMotion()
+  const reduced = usePrefersReducedMotion()
   const active = nodes.find((node) => node.id === selected)
   return (
     <section className="connected-business" id="connections" aria-labelledby="connections-title">
@@ -111,6 +112,7 @@ export function ConnectedBusiness() {
                   }
                   d={`M400 234 Q${node.x * 8} 234 ${node.x * 8} ${node.y * 5.2}`}
                   initial={reduced ? false : { pathLength: 0 }}
+                  animate={reduced ? { pathLength: 1 } : undefined}
                   whileInView={{ pathLength: 1 }}
                   viewport={{ once: true, amount: 0.2 }}
                   transition={{ duration: reduced ? 0 : 1.1 }}

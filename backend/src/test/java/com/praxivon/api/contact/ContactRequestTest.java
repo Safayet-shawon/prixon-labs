@@ -21,4 +21,23 @@ class ContactRequestTest {
             "We need a new customer platform.", "");
         assertTrue(validator.validate(valid).isEmpty());
     }
+
+    @Test
+    void acceptsAPhoneBasedDemoWithoutEmail() {
+        var valid = new ContactRequest("Alex Rivera", null, "Business workflow demo",
+            "Sales and stock records do not match.", "", "Example Company", "+880 1712-345678");
+        assertTrue(validator.validate(valid).isEmpty());
+    }
+
+    @Test
+    void rejectsMissingReplyDetailsInvalidPhonesAndMissingDemoCompany() {
+        assertFalse(validator.validate(new ContactRequest("Alex Rivera", null, "Custom software",
+            "Sales and stock records do not match.", "", null, null)).isEmpty());
+        for (String phone : new String[] {"123", "call me tomorrow", "1234567890123456", "......."}) {
+            assertFalse(validator.validate(new ContactRequest("Alex Rivera", null, "Business workflow demo",
+                "Sales and stock records do not match.", "", "Example Company", phone)).isEmpty());
+        }
+        assertFalse(validator.validate(new ContactRequest("Alex Rivera", null, "Business workflow demo",
+            "Sales and stock records do not match.", "", "   ", "+8801712345678")).isEmpty());
+    }
 }

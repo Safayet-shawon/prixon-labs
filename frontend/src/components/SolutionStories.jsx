@@ -1,14 +1,7 @@
+import { usePrefersReducedMotion } from '../hooks/useMotionPreferences'
 import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import {
-  animate,
-  motion,
-  useInView,
-  useMotionValue,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-} from 'framer-motion'
+import { animate, motion, useInView, useMotionValue, useScroll, useTransform } from 'framer-motion'
 import {
   ArrowDown,
   ArrowUpRight,
@@ -75,11 +68,11 @@ function ChaosCard({ label, index, progress, reduced }) {
 
 function WorkflowVisual({ solution }) {
   const ref = useRef(null)
-  const reduced = useReducedMotion()
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 0.9', 'end 0.35'] })
-  const chaosOpacity = useTransform(scrollYProgress, [0.5, 0.82], [1, 0])
-  const screenOpacity = useTransform(scrollYProgress, [0.55, 0.86], [0, 1])
-  const scale = useTransform(scrollYProgress, [0.5, 0.86], [0.92, 1])
+  const reduced = usePrefersReducedMotion()
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 0.9', 'end 0.5'] })
+  const chaosOpacity = useTransform(scrollYProgress, [0.3, 0.5], [1, 0])
+  const screenOpacity = useTransform(scrollYProgress, [0.5, 0.72], [0, 1])
+  const scale = useTransform(scrollYProgress, [0.5, 0.72], [0.94, 1])
   return (
     <div className="workflow-visual" ref={ref}>
       <div className="workflow-visual-label">
@@ -104,7 +97,7 @@ function WorkflowVisual({ solution }) {
       )}
       <motion.div
         className="workflow-screen"
-        style={reduced ? undefined : { opacity: screenOpacity, scale }}
+        style={reduced ? { opacity: 1, scale: 1 } : { opacity: screenOpacity, scale }}
       >
         <div className="workflow-toolbar">
           <b>✳ praxivon.</b>
@@ -142,7 +135,7 @@ function WorkflowVisual({ solution }) {
 function CountUp({ value, unit, active }) {
   const ref = useRef(null)
   const current = useMotionValue(0)
-  const reduced = useReducedMotion()
+  const reduced = usePrefersReducedMotion()
   useEffect(() => {
     if (reduced) {
       ref.current.textContent = String(value)
@@ -170,7 +163,7 @@ function CountUp({ value, unit, active }) {
 function ImpactChart({ solution }) {
   const ref = useRef(null)
   const active = useInView(ref, { amount: 0.2 })
-  const reduced = useReducedMotion()
+  const reduced = usePrefersReducedMotion()
   const chart = solution.chart
   const path = (values) =>
     values

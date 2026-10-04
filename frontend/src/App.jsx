@@ -9,11 +9,32 @@ import { CaseStudy } from './pages/CaseStudy'
 import { Studio } from './pages/Studio'
 import { Contact } from './pages/Contact'
 import { NotFound } from './pages/NotFound'
+import { BusinessCTA } from './components/BusinessCTA'
+import { SectionReveals } from './components/SectionReveals'
 
 function ScrollToTop() {
-  const { pathname } = useLocation()
+  const { pathname, hash, key } = useLocation()
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' })
+    let secondFrame
+    const firstFrame = requestAnimationFrame(() => {
+      secondFrame = requestAnimationFrame(() => {
+        let id = ''
+        try {
+          id = decodeURIComponent(hash.slice(1))
+        } catch {
+          /* Ignore malformed fragments. */
+        }
+        const target = id && document.getElementById(id)
+        if (target) target.scrollIntoView({ behavior: 'instant', block: 'start' })
+        else window.scrollTo({ top: 0, behavior: 'instant' })
+      })
+    })
+    return () => {
+      cancelAnimationFrame(firstFrame)
+      cancelAnimationFrame(secondFrame)
+    }
+  }, [pathname, hash, key])
+  useEffect(() => {
     const section =
       pathname === '/'
         ? ''
@@ -31,11 +52,16 @@ function ScrollToTop() {
 }
 
 export default function App() {
+  const { pathname } = useLocation()
   return (
     <div id="top">
       <ScrollToTop />
+      <SectionReveals />
+      <a className="skip-link" href="#main-content">
+        Skip to content
+      </a>
       <Header />
-      <main>
+      <main id="main-content" tabIndex="-1">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/services" element={<Services />} />
@@ -45,6 +71,7 @@ export default function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <BusinessCTA key={pathname} />
       </main>
       <Footer />
     </div>

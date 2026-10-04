@@ -31,7 +31,7 @@ class ApiIntegrationTest {
         HttpResponse<String> missingProject = send(HttpRequest.newBuilder(uri("/api/projects/not-a-project")).GET().build());
 
         assertThat(services.statusCode()).isEqualTo(200);
-        assertThat(services.body().split("\"title\":").length - 1).isEqualTo(10);
+        assertThat(services.body().split("\"title\":").length - 1).isEqualTo(11);
         assertThat(projects.statusCode()).isEqualTo(200);
         assertThat(projects.body().split("\"slug\":").length - 1).isEqualTo(5);
         assertThat(project.statusCode()).isEqualTo(200);
@@ -83,6 +83,18 @@ class ApiIntegrationTest {
         assertThat(invalid.body()).contains("\"message\"");
         assertThat(unavailable.statusCode()).isEqualTo(503);
         assertThat(unavailable.body()).contains("\"message\"");
+    }
+
+    @Test
+    void validatesPhoneDemoRequestsThroughThePublicApi() throws Exception {
+        String demo = "{\"name\":\"Alex Rivera\",\"company\":\"Example Company\","
+            + "\"service\":\"Business workflow demo\",\"message\":\"Sales and stock records do not match.\","
+            + "\"phone\":\"+8801712345678\",\"website\":\"\"}";
+        assertThat(post(demo).statusCode()).isEqualTo(503);
+        assertThat(post(demo.replace("+8801712345678", "abc")).statusCode()).isEqualTo(400);
+        assertThat(post(demo.replace("Example Company", "")).statusCode()).isEqualTo(400);
+        // A bot-filled honeypot never attempts email delivery.
+        assertThat(post(demo.replace("\"website\":\"\"", "\"website\":\"spam\"")).statusCode()).isEqualTo(202);
     }
 
     private HttpResponse<String> post(String body) throws Exception {

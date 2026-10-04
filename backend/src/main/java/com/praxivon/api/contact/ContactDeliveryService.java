@@ -37,9 +37,12 @@ public class ContactDeliveryService {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);
         message.setFrom(from);
-        message.setReplyTo(request.email());
+        if (request.email() != null && !request.email().isBlank()) {
+            message.setReplyTo(request.email());
+        }
         message.setSubject("Praxivon enquiry: " + sanitize(request.service()));
-        message.setText("Name: " + sanitize(request.name()) + "\nEmail: " + request.email()
+        message.setText("Name: " + sanitize(request.name()) + "\nEmail: " + sanitize(request.email())
+            + "\nCompany: " + sanitize(request.company()) + "\nPhone: " + sanitize(request.phone())
             + "\nService: " + sanitize(request.service()) + "\n\n" + request.message());
         try {
             sender.send(message);
@@ -49,5 +52,5 @@ public class ContactDeliveryService {
         }
     }
 
-    private String sanitize(String value) { return value.replaceAll("[\\r\\n]+", " ").trim(); }
+    private String sanitize(String value) { return value == null ? "—" : value.replaceAll("[\\r\\n]+", " ").trim(); }
 }

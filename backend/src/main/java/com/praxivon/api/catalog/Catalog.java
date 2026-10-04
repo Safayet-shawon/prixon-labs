@@ -16,7 +16,8 @@ public class Catalog {
         new ServiceItem("booking", "Booking & management systems", "Clear, reliable workflows for schedules, people, and places.", "Platforms & systems"),
         new ServiceItem("automation", "Automation & integrations", "Make your tools talk to each other and give your team time back.", "Growth & evolution"),
         new ServiceItem("product-design", "UI/UX & product design", "Research-led interfaces with character, clarity, and purpose.", "Design & strategy"),
-        new ServiceItem("growth", "Maintenance & growth", "Thoughtful iteration, performance work, and support after launch.", "Growth & evolution")
+        new ServiceItem("growth", "Maintenance & growth", "Thoughtful iteration, performance work, and support after launch.", "Growth & evolution"),
+        new ServiceItem("inventory", "Inventory management", "Stock, orders and movements connected in one clear operational picture.", "Platforms & systems")
     );
 
     private final List<ProjectItem> projects = List.of(

@@ -133,7 +133,7 @@
 }
 .workflow-visual {
   position: relative;
-  height: 490px;
+  height: 520px;
   background: #e4e6db;
   overflow: hidden;
   border: 1px solid #cdd2bf;
@@ -255,9 +255,10 @@
   background: #4c6720;
 }
 .workflow-screen-title {
-  padding-block: 17px;
+  padding-block: 14px;
 }
 .workflow-screen-title small {
+  display: block;
   font:
     600 8px 'DM Sans',
     sans-serif;
@@ -600,10 +601,13 @@
     gap: 32px;
   }
   .workflow-visual {
-    height: 450px;
+    height: 520px;
   }
   .workflow-screen {
     inset: 62px 18px 48px;
+  }
+  .workflow-tiles strong {
+    font-size: 15px;
   }
   .solution-answer {
     display: block;

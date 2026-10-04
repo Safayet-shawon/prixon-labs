@@ -69,6 +69,13 @@ export const services = [
     category: 'Growth & evolution',
     icon: '＋',
   },
+  {
+    number: '11',
+    title: 'Inventory management',
+    short: 'Stock, orders and movements connected in one clear operational picture.',
+    category: 'Platforms & systems',
+    icon: '▧',
+  },
 ]
 
 export const projects = [

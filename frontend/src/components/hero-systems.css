@@ -16,7 +16,7 @@
 
 .hero-systems-interactive .hero-systems-sticky {
   position: sticky;
-  top: 24px;
+  top: 108px;
 }
 
 .hero-systems-stage {
@@ -153,7 +153,7 @@
 
 @media (min-width: 961px) {
   .hero-systems-interactive .hero-systems-stage {
-    height: min(680px, calc(100vh - 48px));
+    height: min(680px, calc(100vh - 132px));
     min-height: 460px;
   }
 }

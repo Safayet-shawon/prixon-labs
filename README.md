@@ -63,7 +63,7 @@ The public contact address `hello@praxivon.com` is carried over from the supplie
 
 | Method | Path                   | Response                                  |
 | ------ | ---------------------- | ----------------------------------------- |
-| `GET`  | `/api/services`        | Ten service entries                       |
+| `GET`  | `/api/services`        | Eleven service entries                    |
 | `GET`  | `/api/projects`        | Five project entries                      |
 | `GET`  | `/api/projects/{slug}` | One project or `404`                      |
 | `POST` | `/api/contact`         | Validated enquiry; `202`, `400`, or `503` |
@@ -81,6 +81,35 @@ Example contact payload:
 ```
 
 The catalog is seeded in the backend and mirrored in the frontend so the public pages render immediately, including when the API is not running. Keep the entries aligned when editing content. Project artwork is CSS-based illustrative concept work, not client screenshots or evidence of results. Keep each case study labeled as a concept until you provide approved screenshots and verified outcomes.
+
+## Client pitching flow
+
+Home and Services include problem → solution → workflow → illustrative improvement → benefits stories for CRM, ERP/SAP, Inventory Management and Website/Custom software. Share a specific story using `/#crm`, `/#erp`, `/#inventory`, `/#web` or the same fragments on `/services`. The ERP connection diagram supports hover, keyboard focus and touch. Existing projects, pages, brand content and the original email contact form are retained.
+
+The hero uses a lazy-loaded Three.js scene on larger screens with a fine pointer. Mobile, reduced motion, constrained connections and WebGL failures use the static SVG. Graphs animate when visible; count-ups pause outside the viewport. All example improvements are explicitly marked **Illustrative estimates**, not verified client outcomes.
+
+The sticky **Get a Demo** link opens `/contact#demo`. The final form accepts name, company, phone and problem through the existing `/api/contact` endpoint. Email is optional when a valid phone is supplied. A demo requires a company; phone numbers must contain 7–15 digits. For example:
+
+```json
+{
+  "name": "Alex Rivera",
+  "company": "Example Company",
+  "phone": "+8801712345678",
+  "service": "Business workflow demo",
+  "message": "Our sales and stock records never match.",
+  "website": ""
+}
+```
+
+Existing email-only payloads remain valid. Both forms use the same SMTP delivery settings and report unavailable delivery instead of claiming success.
+
+To enable direct WhatsApp enquiries, add your actual number to `frontend/.env.local` (and the frontend build environment), then restart or rebuild:
+
+```dotenv
+VITE_WHATSAPP_NUMBER=your_country_code_and_number
+```
+
+Use digits with the country code; formatting spaces or a leading `+` are accepted. This is a public number, not a secret. If no valid number is configured, the button says **Share brief on WhatsApp** and opens WhatsApp's recipient picker with the drafted brief. It does not send a message automatically. No contact number has been invented.
 
 ## Build and checks
 

@@ -22,7 +22,18 @@ export function Wordmark({ inverse = false }) {
 export function Header() {
   const [open, setOpen] = useState(false)
   const location = useLocation()
-  useEffect(() => setOpen(false), [location.pathname])
+  useEffect(() => setOpen(false), [location.pathname, location.hash])
+  useEffect(() => {
+    if (!open) return
+    const handleEscape = (event) => {
+      if (event.key === 'Escape') {
+        setOpen(false)
+        document.querySelector('.menu-toggle')?.focus()
+      }
+    }
+    document.addEventListener('keydown', handleEscape)
+    return () => document.removeEventListener('keydown', handleEscape)
+  }, [open])
   const nav = [
     ['/', 'Home'],
     ['/services', 'Services'],
@@ -46,8 +57,8 @@ export function Header() {
             </NavLink>
           ))}
         </nav>
-        <Link className="header-cta" to="/contact">
-          Let’s talk <ArrowUpRight size={16} />
+        <Link className="header-cta" to="/contact#demo">
+          Get a Demo <ArrowUpRight size={16} />
         </Link>
         <button
           type="button"

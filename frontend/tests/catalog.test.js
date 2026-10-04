@@ -3,7 +3,7 @@ import test from 'node:test'
 import { projects, services } from '../src/data.js'
 
 test('the service catalog has unique numbers and complete display content', () => {
-  assert.equal(services.length, 10)
+  assert.equal(services.length, 11)
   assert.equal(new Set(services.map((service) => service.number)).size, services.length)
 
   for (const service of services) {
