@@ -4,6 +4,7 @@ import { projects, services } from '../data'
 import { ProjectCard, Reveal, SectionHead } from '../components/Primitives'
 import { HeroSystems } from '../components/HeroSystems'
 import { ProblemPicker, SolutionStories } from '../components/SolutionStories'
+import { ConnectedBusiness } from '../components/ConnectedBusiness'
 
 export function Home() {
   return (
@@ -19,6 +20,9 @@ export function Home() {
             DESIGN + ENGINEERING / EST. 2025
           </span>
         </div>
+        <p className="hero-problem-lead">
+          Missed leads. Stock surprises. Reports that don’t agree.
+        </p>
         <Reveal>
           <h1>
             WE DESIGN
@@ -84,6 +88,7 @@ export function Home() {
         </div>
       </section>
       <SolutionStories />
+      <ConnectedBusiness />
       <section className="section container" id="selected-work">
         <Reveal>
           <SectionHead

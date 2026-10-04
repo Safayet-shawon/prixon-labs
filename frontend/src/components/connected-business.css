@@ -1,0 +1,211 @@
+.connected-business {
+  background: var(--ink);
+  color: var(--paper);
+  padding-block: 96px;
+  scroll-margin-top: 104px;
+}
+.connected-business .eyebrow {
+  color: var(--lime);
+}
+.connected-business .section-head {
+  margin-bottom: 40px;
+}
+.connected-business-layout {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 6%;
+  align-items: center;
+}
+.connection-map {
+  position: relative;
+  height: 520px;
+  background: radial-gradient(ellipse at 50% 45%, #a4bd4220, transparent 60%);
+}
+.connection-lines {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+}
+.connection-lines path {
+  fill: none;
+  stroke: #52633b;
+  stroke-width: 1.5;
+  transition: stroke 0.25s;
+}
+.connection-lines path.connection-line-active {
+  stroke: var(--lime);
+}
+.connection-core-ring {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  width: 185px;
+  height: 185px;
+  border: 1px solid #d4f45625;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+.connection-node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  min-width: 134px;
+  min-height: 80px;
+  border: 1px solid #53603d;
+  background: #252a1e;
+  color: var(--paper);
+  padding: 14px 17px;
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: 9px;
+  text-align: left;
+  box-shadow: 0 8px 24px #0002;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+}
+.connection-node svg {
+  grid-row: 1 / 3;
+  color: var(--lime);
+  align-self: center;
+}
+.connection-node > span {
+  font:
+    700 13px 'Manrope',
+    sans-serif;
+  letter-spacing: -0.03em;
+}
+.connection-node small {
+  font:
+    600 7px 'DM Sans',
+    sans-serif;
+  letter-spacing: 0.1em;
+  color: #a4b287;
+}
+.connection-node-erp {
+  min-width: 157px;
+  min-height: 92px;
+  border-color: var(--lime);
+}
+.connection-node.is-selected {
+  border-color: var(--lime);
+  background: #364327;
+}
+.connection-node:focus-visible {
+  outline: 2px solid var(--paper);
+  outline-offset: 5px;
+}
+.connection-hint {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  color: #97a282;
+  font-size: 10px;
+}
+.connection-detail {
+  min-height: 350px;
+}
+.connection-detail h3 {
+  font:
+    600 clamp(26px, 3vw, 42px)/1.17 'Manrope',
+    sans-serif;
+  letter-spacing: -0.05em;
+  margin: 24px 0;
+}
+.connection-detail > p {
+  font-size: 14px;
+  line-height: 1.8;
+  color: #b6bfaa;
+}
+.connection-detail ol {
+  list-style: none;
+  margin: 27px 0;
+  padding: 0;
+}
+.connection-detail li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 0;
+  border-top: 1px solid #444e34;
+  font:
+    600 12px 'DM Sans',
+    sans-serif;
+}
+.connection-detail li > span {
+  color: #a2bb55;
+  font-size: 9px;
+}
+.connection-detail li svg {
+  margin-left: auto;
+  color: var(--lime);
+}
+.connection-detail p.connection-scope {
+  font-size: 11px;
+  color: #99a484;
+}
+@media (max-width: 1100px) {
+  .connected-business-layout {
+    grid-template-columns: 1.25fr 1fr;
+    gap: 4%;
+  }
+  .connection-node {
+    min-width: 116px;
+    padding: 12px;
+    gap: 7px;
+  }
+  .connection-node-erp {
+    min-width: 142px;
+  }
+  .connection-node > span {
+    font-size: 12px;
+  }
+}
+@media (max-width: 760px) {
+  .connected-business {
+    padding-block: 60px;
+  }
+  .connected-business-layout {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .connection-map {
+    height: 430px;
+  }
+  .connection-node {
+    min-width: 112px;
+    min-height: 76px;
+    grid-template-columns: 19px 1fr;
+    padding: 12px 10px;
+    gap: 6px;
+  }
+  .connection-node svg {
+    width: 18px;
+  }
+  .connection-node-erp {
+    min-width: 140px;
+  }
+  .connection-core-ring {
+    width: 165px;
+    height: 165px;
+  }
+  .connection-detail {
+    min-height: 355px;
+    padding-top: 15px;
+    border-top: 1px solid #444e34;
+  }
+  .connection-detail h3 {
+    font-size: 31px;
+  }
+}
+@media (max-width: 360px) {
+  .connection-node {
+    min-width: 102px;
+  }
+  .connection-node > span {
+    font-size: 11px;
+  }
+}
