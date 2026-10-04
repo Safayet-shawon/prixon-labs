@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { ArrowDown, ArrowUpRight } from 'lucide-react'
 import { projects, services } from '../data'
 import { ProjectCard, Reveal, SectionHead } from '../components/Primitives'
+import { HeroSystems } from '../components/HeroSystems'
 
 export function Home() {
   return (
@@ -43,11 +44,12 @@ export function Home() {
           </Link>
         </div>
       </section>
-      <section className="hero-feature">
+      <section className="hero-feature hero-feature-connected">
         <div className="feature-caption container">
           <span>01 / FEATURED THINKING</span>
           <span>BUILT FOR WHAT’S NEXT ↗</span>
         </div>
+        <HeroSystems />
         <div className="feature-stage container">
           <div className="feature-giant">
             P<span>✳</span>
