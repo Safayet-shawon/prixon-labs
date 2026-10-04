@@ -1,4 +1,4 @@
-const base = import.meta.env.VITE_API_URL || ''
+const base = (import.meta.env.VITE_API_URL || '').replace(/\/+$/, '')
 
 export async function sendContact(payload) {
   let response

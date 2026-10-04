@@ -7,9 +7,10 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "test": "node --test",
     "lint": "eslint .",
-    "format": "prettier --write src index.html vite.config.js eslint.config.js package.json",
-    "format:check": "prettier --check src index.html vite.config.js eslint.config.js package.json"
+    "format": "prettier --write src tests index.html vite.config.js eslint.config.js package.json ../README.md",
+    "format:check": "prettier --check src tests index.html vite.config.js eslint.config.js package.json ../README.md"
   },
   "dependencies": {
     "framer-motion": "^12.23.12",

@@ -50,24 +50,29 @@ export function Header() {
           Let’s talk <ArrowUpRight size={16} />
         </Link>
         <button
+          type="button"
           className="menu-toggle"
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
+          aria-controls="mobile-navigation"
           onClick={() => setOpen(!open)}
         >
           {open ? <X size={25} /> : <Menu size={25} />}
         </button>
       </div>
-      {open && (
-        <nav className="mobile-nav" aria-label="Mobile navigation">
-          {nav.map(([to, label]) => (
-            <NavLink key={to} to={to} end={to === '/'}>
-              {label}
-              <ArrowUpRight size={19} />
-            </NavLink>
-          ))}
-        </nav>
-      )}
+      <nav
+        id="mobile-navigation"
+        className="mobile-nav"
+        aria-label="Mobile navigation"
+        hidden={!open}
+      >
+        {nav.map(([to, label]) => (
+          <NavLink key={to} to={to} end={to === '/'}>
+            {label}
+            <ArrowUpRight size={19} />
+          </NavLink>
+        ))}
+      </nav>
     </header>
   )
 }

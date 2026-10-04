@@ -7,52 +7,66 @@ An independent digital product studio portfolio. The repository contains a multi
 - `frontend/` — React 19, Vite 7, Tailwind CSS 4, React Router, Framer Motion, Lucide icons
 - `backend/` — Java 17, Spring Boot 4.1, Maven
 
-## Run locally
+## Run locally on Windows / VS Code
 
-Install Node.js 22+ and Java 17+ with Maven 3.6.3+.
+Use Node.js 22 or newer and a Java 17+ JDK. The checked-in Maven Wrapper downloads Maven for you; a separate Maven installation is not needed. On Windows with WinGet, install the JDK with:
 
-Start the API in one terminal:
-
-```bash
-cd backend
-mvn spring-boot:run
+```powershell
+winget install --id EclipseAdoptium.Temurin.17.JDK --exact
 ```
 
-Start the frontend in another:
+Reopen VS Code after installation. In a VS Code PowerShell terminal, start at the repository root:
 
-```bash
-cd frontend
+```powershell
+Copy-Item backend\.env.example backend\.env
+Copy-Item frontend\.env.example frontend\.env.local
+```
+
+Edit `backend\.env` only when you have real SMTP settings. The examples contain no credentials; leaving them blank keeps contact delivery safely unavailable and the site displays an email fallback.
+
+Start the API in the first terminal:
+
+```powershell
+.\backend\run-local.ps1
+```
+
+`run-local.ps1` explicitly reads `backend\.env`, places its `KEY=value` entries in the process environment, and then launches Spring Boot through `mvnw.cmd`. Spring Boot does **not** load `.env` files by itself. Install a Java 17+ JDK; the launcher finds `JAVA_HOME` from `java` on `PATH` when possible, otherwise set `JAVA_HOME` to the JDK installation folder.
+
+Start the frontend in a second terminal:
+
+```powershell
+Set-Location frontend
 npm ci
 npm run dev
 ```
 
-Open the URL shown by Vite, normally `http://127.0.0.1:5173`. Vite proxies `/api` requests to `http://localhost:8080`. The pages can be browsed without the API; submitting the contact form requires a running API and configured SMTP delivery.
+Open `http://127.0.0.1:5173`. Vite proxies `/api/*` to `http://127.0.0.1:8080`; change `VITE_PROXY_TARGET` in `frontend\.env.local` if the API uses another local address. Keep `VITE_API_URL` empty to use that proxy. Catalog pages can render without the API; API routes and contact submission require the backend.
 
 ## Contact delivery
 
-Set these environment variables for the backend before accepting contact messages:
+Set these environment variables in `backend\.env` before accepting contact messages:
 
-| Variable | Purpose |
-| --- | --- |
-| `SMTP_HOST`, `SMTP_PORT` | Mail server and port (default port: `587`) |
-| `SMTP_USERNAME`, `SMTP_PASSWORD` | Mail credentials, when required |
-| `CONTACT_TO` | Inbox that receives enquiries |
-| `CONTACT_FROM` | Verified sender address on your mail server |
-| `CORS_ORIGINS` | Optional comma-separated frontend origins when the API is on another origin |
-| `PORT` | Optional API port (default: `8080`) |
+| Variable                         | Purpose                                                            |
+| -------------------------------- | ------------------------------------------------------------------ |
+| `SMTP_HOST`, `SMTP_PORT`         | Your mail server and port (default port: `587`)                    |
+| `SMTP_USERNAME`, `SMTP_PASSWORD` | Credentials from your mail provider                                |
+| `CONTACT_TO`                     | Inbox you control that receives enquiries                          |
+| `CONTACT_FROM`                   | Sender address authorized by your mail provider                    |
+| `CORS_ORIGINS`                   | Comma-separated frontend origins when the API is on another origin |
+| `PORT`                           | Optional API port (default: `8080`)                                |
 
-See `backend/.env.example` for a sample configuration. The example file is documentation; Spring Boot reads actual environment variables. Do not commit credentials. The API returns `503` when mail delivery is unavailable and the site offers an email fallback. A successful `202` means the mail sender accepted the message. For a public deployment, add abuse protection at the edge or API gateway.
+See `backend\.env.example` for variable names. The local launcher loads the real `.env` values; direct invocations such as `.\backend\mvnw.cmd spring-boot:run` require the variables to be set in the shell separately. Real credentials and `.env` files must never be committed. The API returns `503` when delivery is unconfigured or fails; the contact page displays that state and offers an email fallback. A successful `202` means the mail sender accepted the message. For a public deployment, add abuse protection at the edge or API gateway.
 
-The current contact address `hello@praxivon.com` comes from the supplied preview and must be verified before launch. Set `CONTACT_TO` to the real inbox and update `frontend/src/config.js` if that public address changes.
+The public contact address `hello@praxivon.com` is carried over from the supplied preview and is **not verified**. Confirm that you own and monitor it or replace it in `frontend/src/config.js` before launch. Set `CONTACT_TO` to the real receiving inbox and `CONTACT_FROM` to a sender authorized by your mail provider. Do not use an unverified address as a production fallback.
 
 ## API
 
-| Method | Path | Response |
-| --- | --- | --- |
-| `GET` | `/api/services` | Ten service entries |
-| `GET` | `/api/projects` | Five project entries |
-| `GET` | `/api/projects/{slug}` | One project or `404` |
-| `POST` | `/api/contact` | Validated enquiry; `202`, `400`, or `503` |
+| Method | Path                   | Response                                  |
+| ------ | ---------------------- | ----------------------------------------- |
+| `GET`  | `/api/services`        | Ten service entries                       |
+| `GET`  | `/api/projects`        | Five project entries                      |
+| `GET`  | `/api/projects/{slug}` | One project or `404`                      |
+| `POST` | `/api/contact`         | Validated enquiry; `202`, `400`, or `503` |
 
 Example contact payload:
 
@@ -66,24 +80,34 @@ Example contact payload:
 }
 ```
 
-The catalog is seeded in the backend and mirrored in the frontend so the public pages render immediately, including when the API is not running. Keep the entries aligned when editing content. The project images are CSS-based illustrative concepts, and each case study says so; replace them with approved screenshots and verified outcomes before presenting them as client work.
+The catalog is seeded in the backend and mirrored in the frontend so the public pages render immediately, including when the API is not running. Keep the entries aligned when editing content. Project artwork is CSS-based illustrative concept work, not client screenshots or evidence of results. Keep each case study labeled as a concept until you provide approved screenshots and verified outcomes.
 
 ## Build and checks
 
-```bash
-cd frontend
+```powershell
+Set-Location frontend
+npm ci
+npm test
 npm run lint
 npm run format:check
 npm run build
 ```
 
-```bash
-cd backend
-mvn verify
+```powershell
+Set-Location backend
+.\mvnw.cmd --batch-mode verify
 ```
 
-GitHub Actions runs both checks on pushes to `main` and on pull requests.
+GitHub Actions runs frontend tests, lint, formatting, and build, plus the backend Maven verification on pushes to `main` and pull requests.
 
 ## Deployment notes
 
-Build the frontend with `npm run build` and serve `frontend/dist` with SPA fallback routing to `index.html`. Route `/api/*` to the Spring Boot service. If the API is hosted separately, set `VITE_API_URL` to its origin when building the frontend and configure `CORS_ORIGINS` on the backend. Use HTTPS and provide real SMTP credentials. No deployment or domain configuration is included in this repository.
+Build the frontend with `npm run build` and serve `frontend/dist` with SPA fallback routing to `index.html`, so direct loads of `/services`, `/work`, and `/work/{slug}` resolve to the app. Route `/api/*` to the Spring Boot service. If the API is hosted separately, set `VITE_API_URL` to its origin (without a trailing slash) when building the frontend and configure `CORS_ORIGINS` to the exact frontend origin(s) on the backend. Use HTTPS and real SMTP credentials. This repository does not configure hosting, domain ownership, verified inboxes, or deployment secrets.
+
+Before launch, provide/confirm:
+
+- Java 17+ installed locally (and Node.js 22+).
+- A real receiving inbox, SMTP host/port/username/password, and authorized sender address.
+- Confirmation or replacement of the displayed `hello@praxivon.com` public contact address.
+- The production frontend origin for `CORS_ORIGINS` if frontend and API use separate origins.
+- Approved project screenshots and verified client outcomes if concept studies are to be presented as completed client work.

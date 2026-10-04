@@ -1666,7 +1666,7 @@ em {
     display: block;
   }
   .mobile-nav {
-    display: flex;
+    display: none;
     flex-direction: column;
     background: var(--paper);
     position: absolute;
@@ -1675,6 +1675,9 @@ em {
     right: 0;
     padding: 12px 19px 25px;
     box-shadow: 0 12px 20px #0002;
+  }
+  .mobile-nav:not([hidden]) {
+    display: flex;
   }
   .mobile-nav a {
     display: flex;
@@ -2079,6 +2082,11 @@ em {
   }
   .footer-middle > div:first-of-type {
     grid-column: 1/-1;
+  }
+}
+@media (max-width: 360px) {
+  .case-heading h1 {
+    font-size: 48px;
   }
 }
 @media (prefers-reduced-motion: reduce) {
