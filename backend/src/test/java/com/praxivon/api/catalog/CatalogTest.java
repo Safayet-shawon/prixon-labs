@@ -9,7 +9,7 @@ class CatalogTest {
 
     @Test
     void exposesTheCompleteServiceAndProjectCatalog() {
-        assertEquals(9, catalog.services().size());
+        assertEquals(10, catalog.services().size());
         assertEquals(5, catalog.projects().size());
         assertTrue(catalog.project("nexora").isPresent());
         assertTrue(catalog.project("unknown").isEmpty());

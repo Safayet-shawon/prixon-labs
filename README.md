@@ -43,13 +43,13 @@ Set these environment variables for the backend before accepting contact message
 
 See `backend/.env.example` for a sample configuration. The example file is documentation; Spring Boot reads actual environment variables. Do not commit credentials. The API returns `503` when mail delivery is unavailable and the site offers an email fallback. A successful `202` means the mail sender accepted the message. For a public deployment, add abuse protection at the edge or API gateway.
 
-The current contact address `hello@praxivon.com` comes from the supplied preview and must be verified before launch. Set `CONTACT_TO` to the real inbox and update `frontend/src/App.jsx` if that public address changes.
+The current contact address `hello@praxivon.com` comes from the supplied preview and must be verified before launch. Set `CONTACT_TO` to the real inbox and update `frontend/src/config.js` if that public address changes.
 
 ## API
 
 | Method | Path | Response |
 | --- | --- | --- |
-| `GET` | `/api/services` | Nine service entries |
+| `GET` | `/api/services` | Ten service entries |
 | `GET` | `/api/projects` | Five project entries |
 | `GET` | `/api/projects/{slug}` | One project or `404` |
 | `POST` | `/api/contact` | Validated enquiry; `202`, `400`, or `503` |
@@ -73,6 +73,7 @@ The catalog is seeded in the backend and mirrored in the frontend so the public 
 ```bash
 cd frontend
 npm run lint
+npm run format:check
 npm run build
 ```
 

@@ -13,7 +13,12 @@ export async function sendContact(payload) {
   }
 
   let data = {}
-  try { data = await response.json() } catch { /* The server may have no JSON body. */ }
-  if (!response.ok) throw new Error(data.message || 'We could not send your message. Please email us directly.')
+  try {
+    data = await response.json()
+  } catch {
+    /* The server may have no JSON body. */
+  }
+  if (!response.ok)
+    throw new Error(data.message || 'We could not send your message. Please email us directly.')
   return data
 }
