@@ -4,6 +4,7 @@ target/
 .env
 .env.*
 !.env.example
+backend/.mvn/wrapper/maven-wrapper.jar
 .idea/
 .vscode/
 *.log

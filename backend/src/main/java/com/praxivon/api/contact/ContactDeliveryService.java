@@ -6,9 +6,13 @@ import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 public class ContactDeliveryService {
+    private static final Logger logger = LoggerFactory.getLogger(ContactDeliveryService.class);
+
     private final ObjectProvider<JavaMailSender> mailSender;
     private final String smtpHost;
     private final String to;
@@ -25,7 +29,8 @@ public class ContactDeliveryService {
     }
 
     public void deliver(ContactRequest request) {
-        if (smtpHost.isBlank() || to.isBlank() || from.isBlank() || mailSender.getIfAvailable() == null) {
+        JavaMailSender sender = mailSender.getIfAvailable();
+        if (smtpHost.isBlank() || to.isBlank() || from.isBlank() || sender == null) {
             throw new ContactUnavailableException("The contact service is temporarily unavailable. Please email us directly.");
         }
 
@@ -37,8 +42,9 @@ public class ContactDeliveryService {
         message.setText("Name: " + sanitize(request.name()) + "\nEmail: " + request.email()
             + "\nService: " + sanitize(request.service()) + "\n\n" + request.message());
         try {
-            mailSender.getObject().send(message);
+            sender.send(message);
         } catch (MailException exception) {
+            logger.warn("Contact message delivery failed", exception);
             throw new ContactUnavailableException("The contact service is temporarily unavailable. Please email us directly.");
         }
     }
