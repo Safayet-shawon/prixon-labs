@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS services (
+  id VARCHAR(80) PRIMARY KEY,
+  title VARCHAR(160) NOT NULL,
+  description VARCHAR(1000) NOT NULL,
+  category VARCHAR(120) NOT NULL,
+  sort_order INT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS projects (
+  slug VARCHAR(100) PRIMARY KEY,
+  name VARCHAR(160) NOT NULL,
+  type VARCHAR(160) NOT NULL,
+  year VARCHAR(20) NOT NULL,
+  summary VARCHAR(1000) NOT NULL,
+  intro VARCHAR(2000) NOT NULL,
+  challenge VARCHAR(4000) NOT NULL,
+  approach VARCHAR(4000) NOT NULL,
+  outcome VARCHAR(4000) NOT NULL,
+  scope VARCHAR(2000) NOT NULL,
+  visual_theme VARCHAR(80) NOT NULL,
+  visual_note VARCHAR(500) NOT NULL,
+  sort_order INT NOT NULL
+);
