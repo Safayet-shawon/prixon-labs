@@ -46,6 +46,7 @@ function ScrollToTop() {
               '/work': 'Work',
               '/studio': 'Studio',
               '/contact': 'Contact',
+              '/privacy': 'Privacy',
             }[pathname] || 'Page not found'
     document.title = `${section ? `${section} — ` : ''}Praxivon Labs`
   }, [pathname])
