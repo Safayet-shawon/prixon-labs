@@ -1,17 +1,18 @@
-import { useEffect } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
-import { projects } from './data'
 import { Header, Footer } from './components/Layout'
-import { Home } from './pages/Home'
-import { Services } from './pages/Services'
-import { Work } from './pages/Work'
-import { CaseStudy } from './pages/CaseStudy'
-import { Studio } from './pages/Studio'
-import { Contact } from './pages/Contact'
-import { NotFound } from './pages/NotFound'
-import { Privacy } from './pages/Privacy'
 import { BusinessCTA } from './components/BusinessCTA'
 import { SectionReveals } from './components/SectionReveals'
+
+const Home = lazy(() => import('./pages/Home').then((m) => ({ default: m.Home })))
+const Services = lazy(() => import('./pages/Services').then((m) => ({ default: m.Services })))
+const Work = lazy(() => import('./pages/Work').then((m) => ({ default: m.Work })))
+const CaseStudy = lazy(() => import('./pages/CaseStudy').then((m) => ({ default: m.CaseStudy })))
+const Studio = lazy(() => import('./pages/Studio').then((m) => ({ default: m.Studio })))
+const Contact = lazy(() => import('./pages/Contact').then((m) => ({ default: m.Contact })))
+const Privacy = lazy(() => import('./pages/Privacy').then((m) => ({ default: m.Privacy })))
+const Admin = lazy(() => import('./pages/Admin').then((m) => ({ default: m.Admin })))
+const NotFound = lazy(() => import('./pages/NotFound').then((m) => ({ default: m.NotFound })))
 
 function ScrollToTop() {
   const { pathname, hash, key } = useLocation()
@@ -35,49 +36,59 @@ function ScrollToTop() {
       cancelAnimationFrame(secondFrame)
     }
   }, [pathname, hash, key])
+
   useEffect(() => {
     const section =
       pathname === '/'
         ? ''
         : pathname.startsWith('/work/')
-          ? projects.find((project) => pathname.endsWith(`/${project.slug}`))?.name || 'Work'
+          ? 'Work'
           : {
               '/services': 'Services',
               '/work': 'Work',
               '/studio': 'Studio',
               '/contact': 'Contact',
               '/privacy': 'Privacy',
+              '/admin': 'Admin',
             }[pathname] || 'Page not found'
     document.title = `${section ? `${section} — ` : ''}Praxivon Labs`
   }, [pathname])
+
   return null
+}
+
+function PageFallback() {
+  return <div className="page-loading" aria-live="polite">Loading…</div>
 }
 
 export default function App() {
   const { pathname } = useLocation()
   const isHome = pathname === '/'
+  const isAdmin = pathname.startsWith('/admin')
+
   return (
     <div id="top" className={isHome ? 'app-home' : 'app-inner'}>
       <ScrollToTop />
       <SectionReveals />
-      <a className="skip-link" href="#main-content">
-        Skip to content
-      </a>
-      {!isHome && <Header />}
+      <a className="skip-link" href="#main-content">Skip to content</a>
+      {!isHome && !isAdmin && <Header />}
       <main id="main-content" tabIndex="-1">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/work" element={<Work />} />
-          <Route path="/work/:slug" element={<CaseStudy />} />
-          <Route path="/studio" element={<Studio />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/privacy" element={<Privacy />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-        <BusinessCTA key={pathname} />
+        <Suspense fallback={<PageFallback />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/work" element={<Work />} />
+            <Route path="/work/:slug" element={<CaseStudy />} />
+            <Route path="/studio" element={<Studio />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
+        {!isAdmin && <BusinessCTA key={pathname} />}
       </main>
-      <Footer />
+      {!isAdmin && <Footer />}
     </div>
   )
 }
