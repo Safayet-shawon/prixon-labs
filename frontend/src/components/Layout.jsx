@@ -58,7 +58,7 @@ export function Header() {
           ))}
         </nav>
         <Link className="header-cta" to="/contact#demo">
-          Get a Demo <ArrowUpRight size={16} />
+          Get a demo <ArrowUpRight size={16} />
         </Link>
         <button
           type="button"

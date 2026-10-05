@@ -53,14 +53,15 @@ function ScrollToTop() {
 
 export default function App() {
   const { pathname } = useLocation()
+  const isHome = pathname === '/'
   return (
-    <div id="top">
+    <div id="top" className={isHome ? 'app-home' : 'app-inner'}>
       <ScrollToTop />
       <SectionReveals />
       <a className="skip-link" href="#main-content">
         Skip to content
       </a>
-      <Header />
+      {!isHome && <Header />}
       <main id="main-content" tabIndex="-1">
         <Routes>
           <Route path="/" element={<Home />} />

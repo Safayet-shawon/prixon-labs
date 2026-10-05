@@ -1,56 +1,20 @@
 import { Link } from 'react-router-dom'
-import { ArrowDown, ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 import { projects, services } from '../data'
 import { ProjectCard, Reveal, SectionHead } from '../components/Primitives'
 import { HeroSystems } from '../components/HeroSystems'
 import { ProblemPicker, SolutionStories } from '../components/SolutionStories'
 import { ConnectedBusiness } from '../components/ConnectedBusiness'
+import { SylvaScene } from '../components/SylvaScene'
 
 export function Home() {
   return (
     <>
-      <section className="hero container">
-        <div className="hero-top">
-          <span className="eyebrow">
-            <span className="status-dot" /> INDEPENDENT DIGITAL PRODUCT STUDIO
-          </span>
-          <span className="hero-index">
-            BASED IN DHAKA · WORKING EVERYWHERE
-            <br />
-            DESIGN + ENGINEERING / EST. 2025
-          </span>
-        </div>
-        <p className="hero-problem-lead">
-          Missed leads. Stock surprises. Reports that don’t agree.
-        </p>
-        <Reveal>
-          <h1>
-            WE DESIGN
-            <br />
-            <span>
-              DIGITAL <em>PRODUCTS</em>
-            </span>
-            <br />
-            THAT <span className="hero-outline">MOVE</span>
-            <br className="hero-mobile-break" /> BUSINESSES<span className="lime-period">.</span>
-          </h1>
-        </Reveal>
-        <div className="hero-bottom">
-          <div className="hero-scroll">
-            <ArrowDown size={21} />
-            <span>SCROLL TO EXPLORE</span>
-          </div>
-          <p>
-            Strategy, design, and technology—together under one roof. We turn ambitious ideas into
-            digital experiences people want to use.
-          </p>
-          <Link className="button-dark" to="/work">
-            Explore our work <ArrowUpRight size={19} />
-          </Link>
-        </div>
+      <SylvaScene />
+      <section className="container sylva-problem-picker">
         <ProblemPicker />
       </section>
-      <section className="hero-feature hero-feature-connected">
+      <section className="hero-feature sylva-home-feature">
         <div className="feature-caption container">
           <span>01 / FEATURED THINKING</span>
           <span>BUILT FOR WHAT’S NEXT ↗</span>
