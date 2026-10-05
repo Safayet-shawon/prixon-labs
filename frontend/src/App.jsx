@@ -9,6 +9,7 @@ import { CaseStudy } from './pages/CaseStudy'
 import { Studio } from './pages/Studio'
 import { Contact } from './pages/Contact'
 import { NotFound } from './pages/NotFound'
+import { Privacy } from './pages/Privacy'
 import { BusinessCTA } from './components/BusinessCTA'
 import { SectionReveals } from './components/SectionReveals'
 
@@ -70,6 +71,7 @@ export default function App() {
           <Route path="/work/:slug" element={<CaseStudy />} />
           <Route path="/studio" element={<Studio />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/privacy" element={<Privacy />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <BusinessCTA key={pathname} />
