@@ -9,7 +9,7 @@ const Services = lazy(() => import('./pages/Services').then((m) => ({ default: m
 const Work = lazy(() => import('./pages/Work').then((m) => ({ default: m.Work })))
 const CaseStudy = lazy(() => import('./pages/CaseStudy').then((m) => ({ default: m.CaseStudy })))
 const Studio = lazy(() => import('./pages/Studio').then((m) => ({ default: m.Studio })))
-const Contact = lazy(() => import('./pages/Contact').then((m) => ({ default: m.Contact })))
+const Contact = lazy(() => import('./pages/ContactLive').then((m) => ({ default: m.ContactLive })))
 const Privacy = lazy(() => import('./pages/Privacy').then((m) => ({ default: m.Privacy })))
 const Admin = lazy(() => import('./pages/Admin').then((m) => ({ default: m.Admin })))
 const NotFound = lazy(() => import('./pages/NotFound').then((m) => ({ default: m.NotFound })))
@@ -21,39 +21,22 @@ function ScrollToTop() {
     const firstFrame = requestAnimationFrame(() => {
       secondFrame = requestAnimationFrame(() => {
         let id = ''
-        try {
-          id = decodeURIComponent(hash.slice(1))
-        } catch {
-          /* Ignore malformed fragments. */
-        }
+        try { id = decodeURIComponent(hash.slice(1)) } catch {}
         const target = id && document.getElementById(id)
         if (target) target.scrollIntoView({ behavior: 'instant', block: 'start' })
         else window.scrollTo({ top: 0, behavior: 'instant' })
       })
     })
-    return () => {
-      cancelAnimationFrame(firstFrame)
-      cancelAnimationFrame(secondFrame)
-    }
+    return () => { cancelAnimationFrame(firstFrame); cancelAnimationFrame(secondFrame) }
   }, [pathname, hash, key])
 
   useEffect(() => {
-    const section =
-      pathname === '/'
-        ? ''
-        : pathname.startsWith('/work/')
-          ? 'Work'
-          : {
-              '/services': 'Services',
-              '/work': 'Work',
-              '/studio': 'Studio',
-              '/contact': 'Contact',
-              '/privacy': 'Privacy',
-              '/admin': 'Admin',
-            }[pathname] || 'Page not found'
+    const section = pathname === '/' ? '' : pathname.startsWith('/work/') ? 'Work' : ({
+      '/services': 'Services', '/work': 'Work', '/studio': 'Studio', '/contact': 'Contact',
+      '/privacy': 'Privacy', '/admin': 'Admin',
+    }[pathname] || 'Page not found')
     document.title = `${section ? `${section} — ` : ''}Praxivon Labs`
   }, [pathname])
-
   return null
 }
 
@@ -65,7 +48,6 @@ export default function App() {
   const { pathname } = useLocation()
   const isHome = pathname === '/'
   const isAdmin = pathname.startsWith('/admin')
-
   return (
     <div id="top" className={isHome ? 'app-home' : 'app-inner'}>
       <ScrollToTop />
