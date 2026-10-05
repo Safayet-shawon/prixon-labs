@@ -118,6 +118,7 @@ export function Footer() {
             <Link to="/work">Selected work</Link>
             <Link to="/services">What we do</Link>
             <Link to="/studio">The studio</Link>
+            <Link to="/privacy">Privacy</Link>
           </div>
           <div>
             <span className="footer-label">LOCATION</span>
