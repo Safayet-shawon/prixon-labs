@@ -24,6 +24,13 @@ class ApiIntegrationTest {
     private int port;
 
     @Test
+    void exposesHealthEndpointForDeploymentChecks() throws Exception {
+        HttpResponse<String> response = send(HttpRequest.newBuilder(uri("/api/health")).GET().build());
+        assertThat(response.statusCode()).isEqualTo(200);
+        assertThat(response.body()).contains(""status":"ok"");
+    }
+
+    @Test
     void servesTheCompleteCatalogAndProjectRoutes() throws Exception {
         HttpResponse<String> services = send(HttpRequest.newBuilder(uri("/api/services")).GET().build());
         HttpResponse<String> projects = send(HttpRequest.newBuilder(uri("/api/projects")).GET().build());
