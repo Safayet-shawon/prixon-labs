@@ -19,8 +19,12 @@ async function loadCatalog() {
       if (!response.ok) throw new Error('Catalog unavailable')
       const data = await response.json()
       if (!Array.isArray(data.services) || !Array.isArray(data.projects)) throw new Error('Invalid catalog')
-      cache = data
-      return data
+      const normalized = {
+        services: data.services.map((item, index) => ({ ...item, number: item.number || String(index + 1).padStart(2, '0'), short: item.short || item.description, icon: item.icon || '↗' })),
+        projects: data.projects.map((item, index) => ({ ...item, number: item.number || String(index + 1).padStart(2, '0'), color: item.color || item.visualTheme || 'sage', note: item.note || item.visualNote || '' })),
+      }
+      cache = normalized
+      return normalized
     })
     .catch(() => ({ services: fallbackServices, projects: fallbackProjects }))
     .finally(() => {
