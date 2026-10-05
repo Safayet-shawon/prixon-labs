@@ -66,7 +66,8 @@ export function Admin() {
     event.preventDefault()
     setBusy(true)
     setMessage('')
-    const payload = { ...project, scope: project.scope.split(',').map((item) => item.trim()).filter(Boolean) }
+    const { __editing, ...draft } = project
+    const payload = { ...draft, scope: project.scope.split(',').map((item) => item.trim()).filter(Boolean) }
     try {
       await mutateAdmin(project.__editing ? `/api/admin/projects/${project.__editing}` : '/api/admin/projects', project.__editing ? 'PUT' : 'POST', key, payload)
       await load()
@@ -90,7 +91,7 @@ export function Admin() {
     setBusy(true)
     setMessage('')
     try {
-      await mutateAdmin(service.__editing ? `/api/admin/services/${service.__editing}` : '/api/admin/services', service.__editing ? 'PUT' : 'POST', key, service)
+      await mutateAdmin(service.__editing ? `/api/admin/services/${service.__editing}` : '/api/admin/services', service.__editing ? 'PUT' : 'POST', key, (() => { const { __editing, ...draft } = service; return draft })())
       await load()
       setService(emptyService)
       setMessage('Service saved.')
