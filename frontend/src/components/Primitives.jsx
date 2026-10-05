@@ -221,7 +221,7 @@ export function ProjectCard({ project, index }) {
         <Artwork project={project} />
         <div className="project-meta">
           <span>
-            {project.number} / {project.type}
+            {project.number || String(index + 1).padStart(2, '0')} / {project.type}
           </span>
           <span>{project.year}</span>
         </div>
