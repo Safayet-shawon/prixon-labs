@@ -18,12 +18,15 @@ export function DeferredLandingScene() {
       frame.referrerPolicy = 'no-referrer'
       host.appendChild(frame)
     }
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        mount()
-        observer.disconnect()
-      }
-    }, { rootMargin: '300px' })
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          mount()
+          observer.disconnect()
+        }
+      },
+      { rootMargin: '300px' },
+    )
     observer.observe(host)
     return () => observer.disconnect()
   }, [])

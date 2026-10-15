@@ -2,7 +2,8 @@ import { usePrefersReducedMotion } from '../hooks/useMotionPreferences'
 import { Link } from 'react-router-dom'
 import { ArrowUpRight } from 'lucide-react'
 import { motion } from 'framer-motion'
-import { process } from '../data'
+import { memo } from 'react'
+import { process, sectorArt } from '../data'
 
 export function Reveal({ children, className = '', delay = 0, as = 'div' }) {
   const reduced = usePrefersReducedMotion()
@@ -41,6 +42,61 @@ export function SectionHead({ kicker, title, link, linkLabel = 'Explore all' }) 
   )
 }
 
+const BESPOKE = ['nexora', 'rowna', 'hajj-umrah', 'tomadachi', 'school-management']
+
+// Dashboard illustration for projects without a bespoke mock (new sectors and
+// anything created later from the admin panel).
+function GenericMock({ project }) {
+  const art = sectorArt[project.slug] || {
+    brand: project.name.toLowerCase(),
+    greeting: 'Overview',
+    metrics: [
+      ['ACTIVE', '128', '↗ 8%'],
+      ['COMPLETED', '94%', '↗ 3%'],
+      ['OPEN', '12', '▼ 2'],
+    ],
+    chart: 'Performance overview',
+  }
+  return (
+    <div className="mock-dashboard">
+      <div className="mock-side">
+        <span className="mock-symbol">◈</span>
+        <i />
+        <i />
+        <i />
+        <i />
+      </div>
+      <div className="mock-main">
+        <div className="mock-toolbar">
+          <b>{art.brand}</b>
+          <span>⌕ &nbsp; ◯</span>
+        </div>
+        <div className="mock-greeting">
+          {art.greeting}
+          <span>Here’s what is happening today.</span>
+        </div>
+        <div className="mock-metrics">
+          {art.metrics.map(([label, value, delta]) => (
+            <div key={label}>
+              <small>{label}</small>
+              <strong>{value}</strong>
+              <em>{delta}</em>
+            </div>
+          ))}
+        </div>
+        <div className="mock-chart">
+          <span>{art.chart}</span>
+          <div className="chart-bars">
+            {[38, 52, 44, 66, 58, 74, 63, 81, 70, 92, 84, 100].map((n, i) => (
+              <i key={i} style={{ height: `${n}%` }} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export function Artwork({ project, hero = false }) {
   return (
     <div
@@ -49,6 +105,7 @@ export function Artwork({ project, hero = false }) {
       aria-label={`${project.name} illustrative interface concept`}
     >
       <div className="artwork-grain" />
+      {!BESPOKE.includes(project.slug) && <GenericMock project={project} />}
       {project.slug === 'nexora' && (
         <div className="mock-dashboard">
           <div className="mock-side">
@@ -210,7 +267,7 @@ export function Artwork({ project, hero = false }) {
   )
 }
 
-export function ProjectCard({ project, index }) {
+export const ProjectCard = memo(function ProjectCard({ project, index }) {
   return (
     <Reveal className={`project-card project-card-${index % 2}`}>
       <Link
@@ -237,7 +294,7 @@ export function ProjectCard({ project, index }) {
       </Link>
     </Reveal>
   )
-}
+})
 
 export function PageIntro({ number, title, description }) {
   return (
@@ -299,7 +356,7 @@ export function Callout() {
           <br />
           START WITH A <em>CONVERSATION.</em>
         </h2>
-        <Link className="button-dark" to="/contact">
+        <Link className="button-dark btn" to="/contact">
           Let’s talk <ArrowUpRight size={19} />
         </Link>
       </Reveal>

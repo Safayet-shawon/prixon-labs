@@ -21,3 +21,6 @@ CREATE TABLE IF NOT EXISTS projects (
   visual_note VARCHAR(500) NOT NULL,
   sort_order INT NOT NULL
 );
+
+CREATE INDEX IF NOT EXISTS services_sort_idx ON services (sort_order, id);
+CREATE INDEX IF NOT EXISTS projects_sort_idx ON projects (sort_order, slug);

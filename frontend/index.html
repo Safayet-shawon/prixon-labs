@@ -6,25 +6,62 @@
     <meta name="theme-color" content="#383b34" />
     <meta name="color-scheme" content="dark" />
     <meta name="robots" content="index, follow" />
-    <meta property="og:site_name" content="Praxivon Labs" />
     <meta
       name="description"
-      content="Praxivon Labs is an independent digital product studio designing and engineering ambitious experiences for business."
+      content="Praxivon Labs is an independent digital product studio building CRM, ERP, inventory, websites and automation for growing businesses."
     />
+    <link rel="canonical" href="https://praxivonlabs.vercel.app" />
+    <meta property="og:site_name" content="Praxivon Labs" />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://praxivonlabs.vercel.app" />
     <meta property="og:title" content="Praxivon Labs — Digital products with a point of view" />
     <meta
       property="og:description"
       content="An independent digital product studio. Design and engineering for what comes next."
     />
+    <meta property="og:image" content="https://praxivonlabs.vercel.app/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/icon-192.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Fonts load without blocking first paint; the system stack shows until they arrive. -->
     <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;600;700;800&display=swap"
+      media="print"
+      onload="this.media = 'all'"
     />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;600;700;800&display=swap"
+      />
+    </noscript>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Praxivon Labs",
+        "url": "https://praxivonlabs.vercel.app",
+        "logo": "https://praxivonlabs.vercel.app/icon-512.png",
+        "description": "Independent digital product studio building CRM, ERP, inventory, websites and automation.",
+        "address": { "@type": "PostalAddress", "addressLocality": "Dhaka", "addressCountry": "BD" }
+      }
+    </script>
     <title>Praxivon Labs — Digital products with a point of view</title>
+    <style>
+      html,
+      body {
+        background: #383b34;
+      }
+      body {
+        margin: 0;
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>

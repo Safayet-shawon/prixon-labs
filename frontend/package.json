@@ -1,6 +1,6 @@
 {
   "name": "praxivon-labs-frontend",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -9,8 +9,12 @@
     "preview": "vite preview",
     "test": "node --test",
     "lint": "eslint .",
-    "format": "prettier --write src tests index.html vite.config.js eslint.config.js package.json ../README.md",
-    "format:check": "prettier --check src tests index.html vite.config.js eslint.config.js package.json ../README.md"
+    "format": "prettier --write src tests api scripts index.html vite.config.js eslint.config.js package.json ../README.md",
+    "format:check": "prettier --check src tests api scripts index.html vite.config.js eslint.config.js package.json ../README.md",
+    "db:seed": "node scripts/seed-supabase.mjs",
+    "db:seed-sql": "node scripts/seed-supabase.mjs --sql",
+    "lighthouse": "node scripts/lighthouse.mjs",
+    "verify": "npm run lint && npm test && npm run format:check && npm run build"
   },
   "dependencies": {
     "framer-motion": "^12.23.12",
@@ -32,5 +36,15 @@
     "prettier": "^3.9.9",
     "tailwindcss": "^4.1.11",
     "vite": "^7.1.2"
+  },
+  "description": "Praxivon Labs — React + Vite frontend with a Vercel serverless API backed by Supabase.",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Safayet-shawon/prixon-labs.git",
+    "directory": "frontend"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

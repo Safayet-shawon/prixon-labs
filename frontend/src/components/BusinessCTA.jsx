@@ -132,7 +132,7 @@ export function BusinessCTA() {
             </label>
             <p className="demo-privacy">We’ll use these details to respond to your enquiry.</p>
             <div className="demo-actions">
-              <button className="button-dark" type="submit" disabled={status === 'sending'}>
+              <button className="button-dark btn" type="submit" disabled={status === 'sending'}>
                 {status === 'sending' ? 'Sending…' : 'Get a Demo'}
                 <ArrowUpRight size={18} aria-hidden="true" />
               </button>

@@ -2,6 +2,17 @@ import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { ArrowUpRight, Menu, X } from 'lucide-react'
 import { email } from '../config'
+import { ButtonStyleSwitch } from './ButtonStyle'
+
+// Warm the route chunk on hover/focus so navigation feels instant.
+const prefetchers = {
+  '/services': () => import('../pages/Services'),
+  '/work': () => import('../pages/Work'),
+  '/lab': () => import('../pages/Lab'),
+  '/studio': () => import('../pages/Studio'),
+  '/contact': () => import('../pages/ContactLive'),
+}
+const prefetch = (to) => () => prefetchers[to]?.()
 
 export function Wordmark({ inverse = false }) {
   return (
@@ -38,6 +49,7 @@ export function Header() {
     ['/', 'Home'],
     ['/services', 'Services'],
     ['/work', 'Work'],
+    ['/lab', 'Lab'],
     ['/studio', 'Studio'],
     ['/contact', 'Contact'],
   ]
@@ -51,13 +63,15 @@ export function Header() {
               key={to}
               to={to}
               end={to === '/'}
+              onMouseEnter={prefetch(to)}
+              onFocus={prefetch(to)}
               className={({ isActive }) => (isActive ? 'active' : '')}
             >
               {label}
             </NavLink>
           ))}
         </nav>
-        <Link className="header-cta" to="/contact#demo">
+        <Link className="header-cta btn" to="/contact#demo" onMouseEnter={prefetch('/contact')}>
           Get a demo <ArrowUpRight size={16} />
         </Link>
         <button
@@ -117,6 +131,7 @@ export function Footer() {
             <span className="footer-label">EXPLORE</span>
             <Link to="/work">Selected work</Link>
             <Link to="/services">What we do</Link>
+            <Link to="/lab">Solution Lab</Link>
             <Link to="/studio">The studio</Link>
             <Link to="/privacy">Privacy</Link>
           </div>
@@ -126,6 +141,7 @@ export function Footer() {
             <span>Working worldwide</span>
           </div>
         </div>
+        <ButtonStyleSwitch />
         <div className="footer-bottom">
           <span>© {new Date().getFullYear()} Praxivon Labs. Built with intention.</span>
           <span>Independent by nature. Ambitious by design.</span>

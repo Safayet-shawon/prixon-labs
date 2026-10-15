@@ -11,7 +11,7 @@ export function NotFound() {
         <em>good ideas?</em>
       </h1>
       <p>This page isn’t here, but there’s plenty more to explore.</p>
-      <Link className="button-dark" to="/">
+      <Link className="button-dark btn" to="/">
         Back home <ArrowRight size={19} />
       </Link>
     </section>

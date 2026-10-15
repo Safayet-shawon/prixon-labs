@@ -14,7 +14,7 @@ test('the service catalog has unique numbers and complete display content', () =
 })
 
 test('every project route has complete case-study content and is labeled as a concept', () => {
-  assert.equal(projects.length, 5)
+  assert.equal(projects.length, 10)
   assert.equal(new Set(projects.map((project) => project.slug)).size, projects.length)
 
   for (const project of projects) {

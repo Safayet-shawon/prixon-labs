@@ -1,0 +1,23 @@
+{
+  "name": "praxivon-labs",
+  "version": "1.1.0",
+  "private": true,
+  "description": "Praxivon Labs monorepo: React frontend, Vercel serverless API (Supabase) and optional Spring Boot API.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Safayet-shawon/prixon-labs.git"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "setup": "npm --prefix frontend ci",
+    "dev": "npm --prefix frontend run dev",
+    "build": "npm --prefix frontend run build",
+    "test": "npm --prefix frontend test",
+    "lint": "npm --prefix frontend run lint",
+    "verify": "npm --prefix frontend run verify",
+    "docker:up": "docker compose up --build",
+    "docker:down": "docker compose down"
+  }
+}
