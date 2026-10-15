@@ -1,5 +1,6 @@
-// One serverless function serves the whole REST API. This keeps the project
-// well inside the Hobby plan function limit and keeps caches warm together.
+// One serverless function serves the whole REST API. vercel.json rewrites every
+// /api/* request to /api?__path=<rest>, which keeps the project well inside the
+// Hobby plan function limit and keeps caches warm together.
 import { timingSafeEqual } from 'node:crypto'
 import { HttpError, applyCors, clientIp, rateLimit, send, sendCached } from './_lib/http.js'
 import * as store from './_lib/store.js'
@@ -135,9 +136,10 @@ export default async function handler(req, res) {
     return res.end()
   }
   try {
-    const pathname = new URL(req.url, 'http://localhost').pathname
-    const segments = pathname
-      .replace(/^\/api\/?/, '')
+    const url = new URL(req.url, 'http://localhost')
+    const rewritten = url.searchParams.get('__path')
+    const rest = rewritten ?? url.pathname.replace(/^\/api\/?/, '')
+    const segments = rest
       .split('/')
       .filter(Boolean)
       .map((part) => {

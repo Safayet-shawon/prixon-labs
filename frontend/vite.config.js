@@ -22,7 +22,7 @@ function localApi(env) {
             req.body = undefined
           }
           req.url = `/api${req.url}`
-          const { default: handler } = await server.ssrLoadModule('/api/[...path].js')
+          const { default: handler } = await server.ssrLoadModule('/api/index.js')
           await handler(req, res)
         } catch (error) {
           next(error)

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import handler from '../api/[...path].js'
+import handler from '../api/index.js'
 
 delete process.env.SUPABASE_URL
 delete process.env.SUPABASE_SERVICE_ROLE_KEY
