@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin
 Disallow: /api/admin
 
-Sitemap: https://praxivonlabs.vercel.app/sitemap.xml
+Sitemap: https://praxivon-labs-studio.vercel.app/sitemap.xml

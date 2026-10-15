@@ -2,7 +2,7 @@
 // prints the category scores. Usage: npm run lighthouse -- https://example.com
 import { spawnSync } from 'node:child_process'
 
-const url = process.argv[2] || 'https://praxivonlabs.vercel.app'
+const url = process.argv[2] || 'https://praxivon-labs-studio.vercel.app'
 const args = [
   '--yes',
   'lighthouse',

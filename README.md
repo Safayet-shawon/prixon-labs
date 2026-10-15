@@ -2,7 +2,7 @@
 
 An independent digital product studio site: a fast React frontend, a Vercel serverless API backed by Supabase (Postgres), and an optional Spring Boot API for self-hosting.
 
-**Live:** https://praxivonlabs.vercel.app
+**Live:** https://praxivon-labs-studio.vercel.app
 
 ## What is in the box
 
@@ -71,7 +71,7 @@ All routes live under `/api`.
 - Debounced search and slider handlers, paginated project list, memoised cards.
 - Database indexes, RLS, and PostgREST (pooled by Supabase) from serverless functions; HikariCP pooling in the Java API.
 - Gzip/Brotli on Vercel, compression enabled in nginx and Spring Boot.
-- Audit it yourself: `npm --prefix frontend run lighthouse -- https://praxivonlabs.vercel.app`.
+- Audit it yourself: `npm --prefix frontend run lighthouse -- https://praxivon-labs-studio.vercel.app`.
 
 ## Self-hosting with Docker
 

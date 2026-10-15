@@ -70,7 +70,7 @@ function ScrollToTop() {
   return null
 }
 
-const SITE = 'https://praxivonlabs.vercel.app'
+const SITE = 'https://praxivon-labs-studio.vercel.app'
 const PAGE_DESCRIPTIONS = {
   '/': 'Praxivon Labs is an independent digital product studio building CRM, ERP, inventory, websites and automation for growing businesses.',
   '/services':
