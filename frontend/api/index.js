@@ -38,7 +38,7 @@ function runScenario(kind, input) {
 }
 
 async function route(req, res, segments) {
-  const method = req.method
+  const method = req.method === 'HEAD' ? 'GET' : req.method
   const [a, b, c] = segments
 
   if (a === 'health' && method === 'GET') {

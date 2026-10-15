@@ -2528,3 +2528,117 @@ em {
 .page-loading {
   min-height: 60vh;
 }
+
+/* Instant hero poster shown before (or instead of) the 3D introduction */
+.sylva-scene {
+  position: relative;
+}
+.sylva-scene-frame {
+  position: absolute;
+  inset: 0;
+}
+.sylva-poster {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-items: center;
+  color: #edf2e8;
+  background:
+    radial-gradient(circle at 80% 15%, rgba(205, 236, 173, 0.22), transparent 42%),
+    radial-gradient(circle at 10% 90%, rgba(120, 140, 100, 0.25), transparent 45%), #4a4d44;
+}
+.sylva-poster[hidden] {
+  display: none;
+}
+.sylva-poster-inner {
+  display: grid;
+  gap: 22px;
+  max-width: 900px;
+  margin-inline: auto;
+  padding-block: 60px;
+  justify-items: start;
+}
+.sylva-poster h1 {
+  margin: 0;
+  font:
+    300 clamp(38px, 7vw, 92px) / 1.04 'Lexend Local',
+    sans-serif;
+  letter-spacing: -0.02em;
+}
+.sylva-poster h1 em {
+  font-style: normal;
+  color: #d4f456;
+}
+.sylva-poster p {
+  margin: 0;
+  max-width: 54ch;
+  font-size: clamp(16px, 2vw, 20px);
+  line-height: 1.55;
+  color: rgba(238, 244, 231, 0.82);
+}
+.sylva-poster-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+.sylva-poster-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 26px;
+  margin-top: 14px;
+  font-weight: 600;
+  font-size: 14px;
+}
+.sylva-poster-nav a {
+  padding: 8px 0;
+  border-bottom: 2px solid transparent;
+}
+.sylva-poster-nav a:hover,
+.sylva-poster-nav a:focus-visible {
+  border-bottom-color: #d4f456;
+}
+
+/* Scroll reveal (replaces the animation library for simple fades) */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity 0.72s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s),
+    transform 0.72s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+.home-fallback {
+  display: grid;
+  gap: 24px;
+  padding-block: 80px;
+  min-height: 60vh;
+  align-content: start;
+}
+
+/* The dark theme above swaps --ink/--paper. Restore their original meaning on the
+   components that were built for a dark section or a light panel, so text keeps
+   readable contrast. */
+.connected-business,
+.business-cta {
+  --ink: #171915;
+  --paper: #f2f0e9;
+}
+.chaos-note,
+.impact-panel {
+  --ink: #171915;
+  color: #232a1f;
+}
+.impact-panel .eyebrow,
+.impact-heading > span:last-child {
+  color: #4f5845;
+}

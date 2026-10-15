@@ -1,28 +1,38 @@
 import { usePrefersReducedMotion } from '../hooks/useMotionPreferences'
 import { Link } from 'react-router-dom'
 import { ArrowUpRight } from 'lucide-react'
-import { motion } from 'framer-motion'
-import { memo } from 'react'
+import { memo, useEffect, useRef, useState } from 'react'
 import { process, sectorArt } from '../data'
 
-export function Reveal({ children, className = '', delay = 0, as = 'div' }) {
+// Scroll reveal with IntersectionObserver + CSS transitions (no animation library
+// on the critical path). Reduced-motion visitors see content immediately.
+export function Reveal({ children, className = '', delay = 0, as: Tag = 'div' }) {
   const reduced = usePrefersReducedMotion()
-  const Component = as === 'li' ? motion.li : motion.div
+  const ref = useRef(null)
+  const [seen, setSeen] = useState(false)
+  useEffect(() => {
+    const node = ref.current
+    if (!node || reduced || seen) return undefined
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setSeen(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.13 },
+    )
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [reduced, seen])
   return (
-    <Component
-      className={className}
-      initial={reduced ? false : { opacity: 0, y: 32 }}
-      animate={reduced ? { opacity: 1, y: 0 } : undefined}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.13 }}
-      transition={{
-        duration: reduced ? 0 : 0.72,
-        delay: reduced ? 0 : delay,
-        ease: [0.22, 1, 0.36, 1],
-      }}
+    <Tag
+      ref={ref}
+      className={`reveal ${reduced || seen ? 'is-visible' : ''} ${className}`}
+      style={delay ? { '--reveal-delay': `${delay}s` } : undefined}
     >
       {children}
-    </Component>
+    </Tag>
   )
 }
 
