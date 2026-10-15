@@ -277,14 +277,11 @@ export function Artwork({ project, hero = false }) {
   )
 }
 
-export const ProjectCard = memo(function ProjectCard({ project, index }) {
+export const ProjectCard = memo(function ProjectCard({ project, index, headingLevel = 3 }) {
+  const Heading = `h${headingLevel}`
   return (
     <Reveal className={`project-card project-card-${index % 2}`}>
-      <Link
-        to={`/work/${project.slug}`}
-        className="project-card-link"
-        aria-label={`Explore ${project.name} case study`}
-      >
+      <Link to={`/work/${project.slug}`} className="project-card-link">
         <Artwork project={project} />
         <div className="project-meta">
           <span>
@@ -294,7 +291,7 @@ export const ProjectCard = memo(function ProjectCard({ project, index }) {
         </div>
         <div className="project-bottom">
           <div>
-            <h3>{project.name}</h3>
+            <Heading>{project.name}</Heading>
             <p>{project.summary}</p>
           </div>
           <span className="circle-arrow">

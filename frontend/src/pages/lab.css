@@ -38,7 +38,7 @@
   gap: 18px;
   min-width: 0;
 }
-.lab h4 {
+.lab h2 {
   margin: 8px 0 0;
   font:
     700 12px/1.4 'DM Sans',
@@ -47,7 +47,7 @@
   text-transform: uppercase;
   color: rgba(238, 244, 231, 0.62);
 }
-.lab h4 small {
+.lab h2 small {
   text-transform: none;
   letter-spacing: 0;
   font-weight: 500;

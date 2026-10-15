@@ -67,7 +67,7 @@ export function Work() {
         ) : (
           <div className="projects-grid">
             {shown.map((project, index) => (
-              <ProjectCard key={project.slug} project={project} index={index} />
+              <ProjectCard key={project.slug} project={project} index={index} headingLevel={2} />
             ))}
           </div>
         )}

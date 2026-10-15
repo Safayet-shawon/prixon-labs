@@ -207,7 +207,7 @@ function PipelineTool() {
                   ))}
                 </tbody>
               </table>
-              <h4>Weekly transition matrix P</h4>
+              <h2>Weekly transition matrix P</h2>
               <Heat matrix={data.transition} rows={cols} cols={cols} />
             </>
           )}
@@ -241,9 +241,9 @@ function InventoryTool() {
       </p>
       <div className="lab-grid">
         <div className="lab-inputs">
-          <h4>
+          <h2>
             Requirement matrix A <small>(column item needs row item)</small>
-          </h4>
+          </h2>
           <div className="lab-matrix" style={{ '--n': names.length }}>
             <span />
             {names.map((n) => (
@@ -332,7 +332,7 @@ function InventoryTool() {
                   ))}
                 </tbody>
               </table>
-              <h4>Leontief inverse (I − A)⁻¹</h4>
+              <h2>Leontief inverse (I − A)⁻¹</h2>
               <Heat matrix={data.leontiefInverse} rows={names} cols={names} />
             </>
           )}

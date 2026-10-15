@@ -2642,3 +2642,7 @@ em {
 .impact-heading > span:last-child {
   color: #4f5845;
 }
+
+.project-meta {
+  color: rgba(238, 244, 231, 0.78);
+}

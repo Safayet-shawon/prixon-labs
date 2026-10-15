@@ -4,7 +4,8 @@ import { HttpError } from './http.js'
 const TTL_MS = 30_000
 let cache = null
 
-const url = () => (process.env.SUPABASE_URL || '').replace(/\/+$/, '')
+const url = () =>
+  (process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || '').replace(/\/+$/, '')
 const key = () => process.env.SUPABASE_SERVICE_ROLE_KEY || ''
 export const dbConfigured = () => Boolean(url() && key())
 
